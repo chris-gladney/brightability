@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+@media (min-width: 769px) {
+  #root {
+    width: 100%;
+    height: 100%;
+    font-family: "Poppins", sans-serif;
+    background-color: #faf9f6;
+    color: #333;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff3c4;
+    color: #333;
+    height: 300px;
+  }
+
+  header .logo {
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  button {
+    background-color: #ffd700;
+    color: #333;
+    width: 140px;
+  }
+
+  button:hover {
+    background-color: #ffc300;
+    color: #222;
+  }
+
+  .header-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-us {
+    display: flex;
+    flex-direction: row;
+    height: 250px;
+  }
+
+  .about-us img {
+    height: 100%;
+  }
+
+  .about-us article {
+    text-align: justify;
+    margin: 0 10px;
+  }
+
+  .our-services h2 {
+    text-align: center;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .service-card {
+    width: 300px;
+    height: 280px;
+    background-color: #fff;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .service-card button {
+    margin: 0 auto;
+  }
+}
