@@ -1,6 +1,8 @@
 import Header from "./Header";
 import placeholderImg from "../assets/placeholderImg.png";
 import ServiceCard from "./ServiceCard";
+import ExploreCard from "./ExploreCard";
+import Footer from "./Footer";
 
 function Home() {
   const services = [
@@ -20,17 +22,35 @@ function Home() {
     },
     {
       name: "Brightability Connect",
-      cost: "£4/session (Mon + Fri, 6-7pm)",
+      cost: "£4/session (Mon + Fri, 1800-1900)",
       description:
         "Join us on Zoom for interactive virtual sessions, including karaoke, doodle drawing, scavenger hunts, bingo, beetle, and Makaton singing. A fun and accessible way to stay connected, get creative, and enjoy group activities from home.",
       bookableOnline: true,
     },
     {
       name: "Brightability Hub",
-      cost: "£36/half-day (£72 full-day)",
+      cost: "£36/half-day/£72 full-day (Wed 0930-1530)",
       description:
-        "Wednesdays, 0930-1530\nMayfield Community Centre, Totland Close\nA welcoming day provision focused on life skills, independence, and personal growth in a group setting. Activities are tailored to individual interests and learning styles, creating a supportive and engaging environment for all.",
+        "A welcoming day provision focused on life skills, independence, and personal growth in a group setting. Activities are tailored to individual interests and learning styles, creating a supportive and engaging environment for all.",
       bookableOnline: false,
+    },
+  ];
+
+  const navElements = [
+    {
+      element: "Photo Album",
+      description:
+        "View photos of Brightability's exploits here! Includes trips to theme parks, our virtual sessions, 1:1 buddy service and more!",
+    },
+    {
+      element: "The Team",
+      description:
+        "Meet the team! Caring, experienced, and genuinely committed — our staff build trust, encourage growth, and make every day brighter for those we support.",
+    },
+    {
+      element: "Contact Us",
+      description:
+        "For further information, please navigate to here for contact details.",
     },
   ];
 
@@ -53,17 +73,34 @@ function Home() {
         <ul className="services-list">
           {services.map((serviceObj, i) => {
             return (
-              <ServiceCard
-                key={i}
-                name={serviceObj.name}
-                cost={serviceObj.cost}
-                description={serviceObj.description}
-                bookableOnline={serviceObj.bookableOnline}
-              />
+              <li key={i}>
+                <ServiceCard
+                  name={serviceObj.name}
+                  cost={serviceObj.cost}
+                  description={serviceObj.description}
+                  bookableOnline={serviceObj.bookableOnline}
+                />
+              </li>
             );
           })}
         </ul>
       </section>
+      <nav>
+        <h2>Get to Know Brightability</h2>
+        <ul className="explore">
+          {navElements.map((navElementObj, i) => {
+            return (
+              <li key={i}>
+                <ExploreCard
+                  element={navElementObj.element}
+                  description={navElementObj.description}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      <Footer />
     </>
   );
 }

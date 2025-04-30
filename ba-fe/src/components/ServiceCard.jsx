@@ -23,10 +23,10 @@ function ServiceCard({ name, cost, description, bookableOnline }) {
           <p>{cost}</p>
         </>
       ) : (
-        <>
+        <div className="service-description">
           <p>{description}</p>
           <button>{!bookableOnline ? "Learn More" : "Book"}</button>
-        </>
+        </div>
       )}
     </div>
   );
