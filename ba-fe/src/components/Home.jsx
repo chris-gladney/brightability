@@ -1,5 +1,6 @@
 import Header from "./Header";
 import placeholderImg from "../assets/placeholderImg.png";
+import aboutUs from "../assets/aboutUs.jpg";
 import ServiceCard from "./ServiceCard";
 import ExploreCard from "./ExploreCard";
 import Footer from "./Footer";
@@ -22,7 +23,7 @@ function Home() {
     },
     {
       name: "Brightability Connect",
-      cost: "£4/session (Mon + Fri, 1800-1900)",
+      cost: "£4/session (Mon + Thurs, 1800-1900)",
       description:
         "Join us on Zoom for interactive virtual sessions, including karaoke, doodle drawing, scavenger hunts, bingo, beetle, and Makaton singing. A fun and accessible way to stay connected, get creative, and enjoy group activities from home.",
       bookableOnline: true,
@@ -38,16 +39,19 @@ function Home() {
 
   const navElements = [
     {
+      link: "photos",
       element: "Photo Album",
       description:
         "View photos of Brightability's exploits here! Includes trips to theme parks, our virtual sessions, 1:1 buddy service and more!",
     },
     {
+      link: "staff",
       element: "The Team",
       description:
         "Meet the team! Caring, experienced, and genuinely committed — our staff build trust, encourage growth, and make every day brighter for those we support.",
     },
     {
+      link: "contact",
       element: "Contact Us",
       description:
         "For further information, please navigate to here for contact details.",
@@ -58,7 +62,7 @@ function Home() {
     <>
       <Header />
       <section className="about-us">
-        <img src={placeholderImg} />
+        <img src={aboutUs} />
         <article>
           At Brightability, we help adults with learning disabilities in our
           community. Our goal is to support them in enjoying activities,
@@ -92,6 +96,7 @@ function Home() {
             return (
               <li key={i}>
                 <ExploreCard
+                  link={navElementObj.link}
                   element={navElementObj.element}
                   description={navElementObj.description}
                 />

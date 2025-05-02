@@ -1,12 +1,20 @@
 import "./App.css";
+import ContactUs from "./components/ContactUs";
 import Home from "./components/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Staff from "./components/Staff";
+import PhotoAlbum from "./components/PhotoAlbum";
 
 function App() {
-
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/staff" element={<Staff />} />
+        <Route path="/photos" element={<PhotoAlbum />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

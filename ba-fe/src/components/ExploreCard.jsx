@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function ExploreCard({ element, description }) {
+function ExploreCard({ link, element, description }) {
   const [showDescription, setShowDescription] = useState(false);
 
   const handleMouseOver = () => {
@@ -12,7 +13,7 @@ function ExploreCard({ element, description }) {
   };
 
   return (
-    <a>
+    <Link to={`/${link}`}>
       <div
         className="explore-card"
         onMouseOver={handleMouseOver}
@@ -20,7 +21,7 @@ function ExploreCard({ element, description }) {
       >
         {!showDescription ? <h3>{element}</h3> : <p>{description}</p>}
       </div>
-    </a>
+    </Link>
   );
 }
 

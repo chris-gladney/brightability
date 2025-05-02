@@ -6,12 +6,18 @@ function Footer() {
     <footer>
       <ul>
         <li>
-          <a href="">
+          <a
+            href="https://www.facebook.com/share/16Y5EgkCqN/?mibextid=wwXIfr"
+            target="_blank"
+          >
             <FontAwesomeIcon icon={faFacebook} size="3x" />
           </a>
         </li>
         <li>
-          <a href="">
+          <a
+            href="https://www.instagram.com/brightabilityltd/profilecard/?igsh=YXhyeDJuYm0wdDdv"
+            target="_blank"
+          >
             <FontAwesomeIcon icon={faInstagram} size="3x" />
           </a>
         </li>
