@@ -52,16 +52,18 @@ function PhotoAlbum() {
           })}
         </ul>
         <div className="photo-reel">
-          {photoFilters.map((filter, i) => {
-            return (
-              <>
-                <img src={placeholderImg} className="placeholder-img" />
-                <img src={placeholderImg} className="placeholder-img" />
-                <img src={placeholderImg} className="placeholder-img" />
-                <img src={placeholderImg} className="placeholder-img" />
-              </>
-            );
-          })}
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
+          <img src={placeholderImg} className="placeholder-img" />
         </div>
       </section>
       <Footer />

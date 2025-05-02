@@ -22,6 +22,10 @@
     height: 300px;
   }
 
+  header a {
+    color: rgb(51, 51, 51);
+  }
+
   header .logo {
     height: 100%;
     border-radius: 50%;
@@ -253,7 +257,7 @@
     }
 
     50% {
-      opacity: 0;
+      opacity: 0.2;
     }
 
     100% {
@@ -266,4 +270,20 @@
     animation-iteration-count: infinite;
     width: 350px;
   }
+
+  .staff-description {
+    width: 100%;
+    text-align: center;
+    margin: 20px auto;
+    z-index: 1;
+  }
+
+  .staff-reel {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  
 }
