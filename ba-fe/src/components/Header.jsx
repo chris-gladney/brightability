@@ -5,7 +5,9 @@ function Header() {
   return (
     <header>
       <div className="header-info">
-        <h1>Brightability</h1>
+        <Link to="/">
+          <h1>Brightability</h1>
+        </Link>
         <p>Empowering individuals with learning disabilities to thrive</p>
         <Link to="/contact">
           <button>Contact Us</button>

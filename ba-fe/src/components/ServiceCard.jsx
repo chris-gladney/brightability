@@ -18,7 +18,6 @@ function ServiceCard({ name, cost, description, bookableOnline, imageId }) {
       onMouseOut={handleMouseOut}
     >
       <div className="service-image" id={imageId}>
-        <img className="services-img" src={imageId} alt="" />
       </div>
       {!showDescription ? (
         <div className="service-preview">
