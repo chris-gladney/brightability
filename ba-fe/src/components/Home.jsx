@@ -1,6 +1,5 @@
-import Header from "./Header";
-import placeholderImg from "../assets/placeholderImg.png";
 import aboutUs from "../assets/aboutUs.jpg";
+import Header from "./Header";
 import ServiceCard from "./ServiceCard";
 import ExploreCard from "./ExploreCard";
 import Footer from "./Footer";
@@ -76,6 +75,8 @@ function Home() {
         <h2>Our Services</h2>
         <ul className="services-list">
           {services.map((serviceObj, i) => {
+            const nameAsArray = serviceObj.name.split(" ");
+            const imageId = nameAsArray[1].toLowerCase();
             return (
               <li key={i}>
                 <ServiceCard
@@ -83,6 +84,7 @@ function Home() {
                   cost={serviceObj.cost}
                   description={serviceObj.description}
                   bookableOnline={serviceObj.bookableOnline}
+                  imageId={imageId}
                 />
               </li>
             );
