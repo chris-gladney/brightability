@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import StaffCard from "./StaffCard";
+import StaffCard from "./staffComponents/StaffCard";
 
 function Staff() {
   const staffInfo = [

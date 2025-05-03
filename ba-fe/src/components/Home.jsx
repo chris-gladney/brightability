@@ -1,7 +1,7 @@
 import aboutUs from "../assets/aboutUs.jpg";
 import Header from "./Header";
-import ServiceCard from "./ServiceCard";
-import ExploreCard from "./ExploreCard";
+import ServiceCard from "./homeComponents/ServiceCard";
+import ExploreCard from "./homeComponents/ExploreCard";
 import Footer from "./Footer";
 
 function Home() {
