@@ -1,5 +1,4 @@
 import { useState } from "react";
-import placeholderImg from "../assets/placeholderImg.png";
 
 function StaffCard({ name, job_title, description }) {
   const [infoToDisplay, setinfoToDisplay] = useState("description");
