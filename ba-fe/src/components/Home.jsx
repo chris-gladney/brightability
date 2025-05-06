@@ -91,7 +91,7 @@ function Home() {
           })}
         </ul>
       </section>
-      <nav>
+      <section className="explore-brightability">
         <h2>Get to Know Brightability</h2>
         <ul className="explore">
           {navElements.map((navElementObj, i) => {
@@ -106,7 +106,7 @@ function Home() {
             );
           })}
         </ul>
-      </nav>
+      </section>
       <Footer />
     </>
   );

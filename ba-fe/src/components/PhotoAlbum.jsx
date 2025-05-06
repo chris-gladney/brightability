@@ -5,6 +5,7 @@ import placeholderImg from "../assets/placeholderImg.png";
 
 function PhotoAlbum() {
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const [photosRetrieved, setPhotosRetrieved] = useState(true);
   /* The code below are for placeholder images.
     This will be what is displayed while waiting 
     for a response from the server. More code will be
@@ -40,6 +41,7 @@ function PhotoAlbum() {
                 }
                 onClick={
                   filter !== selectedFilter
+                  && photosRetrieved
                     ? () => {
                         setSelectedFilter(filter);
                       }
