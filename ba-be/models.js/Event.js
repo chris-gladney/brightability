@@ -15,6 +15,10 @@ const eventSchema = new mongoose.Schema({
   zoomLink: {
     type: String,
   },
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Event", eventSchema);
