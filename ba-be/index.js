@@ -15,8 +15,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/social", eventRoutes);
-app.post("/connect", eventRoutes);
+app.use("/", eventRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
