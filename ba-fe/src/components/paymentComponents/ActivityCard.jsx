@@ -1,23 +1,21 @@
-import { useState } from "react";
-
-function ActivityCard({ name, location, date }) {
-  const [addToCart, setAddToCart] = useState(false);
+function ActivityCard({ name, location, date, setAddedEvents }) {
   return (
-    <div className={`activity-card ${addToCart ? "in-cart" : ""}`}>
-      <div className="add-to-cart">
-        <button
-          onClick={() => {
-            setAddToCart(!addToCart);
-          }}
-          className={`${addToCart ? "remove-from-cart" : ""}`}
-        >
-          {addToCart ? "-" : "+"}
-        </button>
-      </div>
+    <div className="upcoming-event">
       <h3>{name}</h3>
       <p>{location}</p>
       <p>{date}</p>
-      <p>Price: £20</p>
+      <button
+        className="add-to-cart"
+        onClick={() => {
+          setAddedEvents((prevEventsArray) => {
+            const highlightedEventObj = { name, location, date };
+
+            return [...prevEventsArray, highlightedEventObj];
+          });
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }

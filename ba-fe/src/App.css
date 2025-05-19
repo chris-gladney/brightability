@@ -402,7 +402,15 @@ button:hover {
   .info-on-services > article {
     width: 40%;
   }
+
+  .payment {
+    display: flex;
+    flex-direction: row;
+    
+  }
 }
+
+/* Tablets and large mobile screens */
 
 @media (min-width: 600px) and (max-width: 768px) {
   * {
