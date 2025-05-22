@@ -35,6 +35,24 @@ router.get("/social", async (req, res) => {
   }
 });
 
+// Updates attendees
+router.put("/social/:id", async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const eventId = req.params;
+
+    const event = await SocialEvent.findOneAndUpdate(
+      { _id: eventId },
+      { $push: { attendees: { name, email } } }
+    );
+
+    res.json({ message: "Event updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 // CONNECT EVENTS
 
 router.post("/connect", async (req, res) => {});
