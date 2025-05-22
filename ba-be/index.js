@@ -3,6 +3,7 @@ const app = express();
 const PORT = 3000;
 
 const eventRoutes = require("./routes/eventRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const connectDB = require("./config/db");
 require("dotenv").config();
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", eventRoutes);
+app.use("/", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

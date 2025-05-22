@@ -1,55 +1,42 @@
 const express = require("express");
 const router = express.Router();
-const Event = require("../models.js/Event");
+const SocialEvent = require("../models.js/SocialEvent");
 
+// SOCIAL EVENTS
+// Posts event to mongodb.socialEvents
 router.post("/social", async (req, res) => {
   try {
-    const { name, location, date } = req.body;
+    const { name, date, location } = req.body;
 
-    const event = await Event.create({
+    const event = await SocialEvent.create({
       name: name,
+      date: date,
       location: location,
-      date: date,
-      category: "Social",
     });
 
     res.status(201).json({
       message: "Event Created",
-      newEvent: { name, location, date, category: "Social" },
+      newEvent: { name, date, location },
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
 });
-
-router.post("/connect", async (req, res) => {
+// Retrieves all social events
+router.get("/social", async (req, res) => {
   try {
-    const { name, date, zoomLink } = req.body;
+    const event = await SocialEvent.find({});
 
-    const event = await Event.create({
-      name: name,
-      date: date,
-      zoomLink: zoomLink,
-      category: "Connect",
-    });
-
-    res.status(201).json({
-      message: "Event Created",
-      newEvent: { name, date, zoomLink, category: "Connect" },
-    });
+    res.status(200).json(event);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
 });
 
-router.get("/allevents", async (req, res) => {
-  try {
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+// CONNECT EVENTS
+
+router.post("/connect", async (req, res) => {});
 
 module.exports = router;
