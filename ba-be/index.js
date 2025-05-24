@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const PORT = 3000;
 
 const eventRoutes = require("./routes/eventRoutes");
@@ -10,13 +11,18 @@ require("dotenv").config();
 
 connectDB(process.env.MONGO_URI);
 
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200,
+};
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/", eventRoutes);
+app.use("/", cors(corsOptions), eventRoutes);
 app.use("/", paymentRoutes);
 
 app.listen(PORT, () => {

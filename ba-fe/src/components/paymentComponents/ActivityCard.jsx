@@ -1,14 +1,14 @@
-function ActivityCard({ name, location, date, setAddedEvents }) {
+function ActivityCard({ id, name, location, date, setAddedEvents }) {
   return (
     <div className="upcoming-event">
-      <h3>{name}</h3>
-      <p>{location}</p>
-      <p>{date}</p>
+      <h3>Event: {name}</h3>
+      <p>Location: {location}</p>
+      <p>Date: {date}</p>
       <button
         className="add-to-cart"
         onClick={() => {
           setAddedEvents((prevEventsArray) => {
-            const highlightedEventObj = { name, location, date };
+            const highlightedEventObj = { id, name, location, date };
 
             return [...prevEventsArray, highlightedEventObj];
           });

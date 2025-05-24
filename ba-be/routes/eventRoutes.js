@@ -26,9 +26,19 @@ router.post("/social", async (req, res) => {
 // Retrieves all social events
 router.get("/social", async (req, res) => {
   try {
-    const event = await SocialEvent.find({});
+    const eventsNoAttendees = [];
+    const events = await SocialEvent.find({});
 
-    res.status(200).json(event);
+    events.forEach((event) => {
+      eventsNoAttendees.push({
+        _id: event._id,
+        name: event.name,
+        location: event.location,
+        date: event.date,
+      });
+    });
+    
+    res.status(200).json(eventsNoAttendees);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });

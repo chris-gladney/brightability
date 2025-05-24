@@ -2,38 +2,23 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActivityCard from "./paymentComponents/activityCard";
+import axios from "axios";
 
 function PaymentSocial() {
   const [emailInput, setEmailInput] = useState("");
   const [confirmEmailInput, setConfirmEmailInput] = useState("");
   const [attendeeInput, setAttendeeInput] = useState("");
 
+  const [allEvents, setAllEvents] = useState([]);
   const [addedEvents, setAddedEvents] = useState([]);
 
-  const socialEvents = [
-    {
-      name: "Bowling",
-      location: "Camberley Arcade",
-      date: "10/05/25",
-    },
-    {
-      name: "Arts and Crafts",
-      location: "Mytchett Community Centre",
-      date: "10/06/25",
-    },
-    {
-      name: "Dinner Out",
-      location: "Nandos Camberley",
-      date: "10/07/25",
-    },
-    {
-      name: "Bowling",
-      location: "Camberley Arcade",
-      date: "10/08/25",
-    },
-  ];
+  useEffect(() => {
+    axios.get("http://localhost:3000/social").then(({ data }) => {
+      setAllEvents(data);
+    });
+  }, []);
 
   return (
     <>
@@ -41,11 +26,12 @@ function PaymentSocial() {
       <div className="payment">
         <section className="events">
           <h3>Upcoming Events</h3>
-          <p>Explore our upcoming social events below!</p>
-          {socialEvents.map((event, i) => {
+          <p>Explore our upcoming social events below! Each event is £20</p>
+          {allEvents.map((event, i) => {
             return (
               <ActivityCard
                 key={i}
+                id={event._id}
                 name={event.name}
                 location={event.location}
                 date={event.date}
@@ -119,7 +105,9 @@ function PaymentSocial() {
               onClick={() => {
                 console.log(addedEvents, "<<< current added events state");
               }}
-            >Button for development to view state</button>
+            >
+              Button for development to view state
+            </button>
           </form>
         </section>
       </div>
