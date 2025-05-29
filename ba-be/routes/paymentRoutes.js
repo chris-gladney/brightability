@@ -2,23 +2,32 @@ const express = require("express");
 const router = express.Router();
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { createCheckoutSession } = require("../utils/stripe");
 
-router.post("/create-checkout-session", async (req, res) => {
-  const YOUR_DOMAIN = "http://localhost:3000";
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-        price: "price_1RQu5eCMfeU2yvPmLZt6fuYy",
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `${YOUR_DOMAIN}?success=true`,
-    cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+// Creates a checkout session
+
+router.post("/pay-social", (req, res) => {
+  const { name, email, addedEvents } = req.body;
+  const socialPriceInPennies = "2000"
+  createCheckoutSession(name, email, addedEvents, socialPriceInPennies).then((data) => {
+    res.json({ url: data.url });
   });
+});
 
-  res.redirect(303, session.url);
+// Checks a previous checkout session to see whether payment is completed
+
+router.post("/fulfill-checkout", (req, res) => {
+  const { sessionId, name, email } = req.body;
+  // Sudo code
+  /* 
+    checkSessionIsPaid(session_id)
+    .then
+    updateAttendees()
+    .then
+    emailAttendee 
+  */
+  console.log(sessionId, name, email);
+  res.status(200);
 });
 
 module.exports = router;

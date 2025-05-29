@@ -3,10 +3,16 @@ import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ActivityCard from "./paymentComponents/activityCard";
 import axios from "axios";
 
 function PaymentSocial() {
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+  const paidEmail = searchParams.get("email");
+  const paidName = searchParams.get("name");
+
   const [emailInput, setEmailInput] = useState("");
   const [confirmEmailInput, setConfirmEmailInput] = useState("");
   const [attendeeInput, setAttendeeInput] = useState("");
@@ -15,10 +21,41 @@ function PaymentSocial() {
   const [addedEvents, setAddedEvents] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/social").then(({ data }) => {
-      setAllEvents(data);
-    });
+    axios
+      .get("http://localhost:3000/social")
+      .then(({ data }) => {
+        setAllEvents(data);
+      })
+      .then(() => {
+        if (sessionId) {
+          axios.post(
+            "http://localhost:3000/fulfill-checkout",
+            {
+              name: paidName,
+              email: paidEmail,
+              sessionId,
+            },
+            { headers: { "Content-Type": "application/json" } }
+          );
+        }
+      });
   }, []);
+
+  const handleCheckout = (name, email, addedEvents) => {
+    axios
+      .post(
+        "http://localhost:3000/pay-social",
+        {
+          name,
+          email,
+          addedEvents,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then(({ data }) => {
+        window.location = data.url;
+      });
+  };
 
   return (
     <>
@@ -90,13 +127,23 @@ function PaymentSocial() {
             <br />
             <button
               className={
-                emailInput && confirmEmailInput && attendeeInput
+                emailInput &&
+                confirmEmailInput &&
+                attendeeInput &&
+                addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
-              onClick={() => {}}
+              onClick={() => {
+                handleCheckout(attendeeInput, emailInput, addedEvents);
+              }}
               disabled={
-                emailInput && confirmEmailInput && attendeeInput ? false : true
+                emailInput &&
+                confirmEmailInput &&
+                attendeeInput &&
+                addedEvents.length > 0
+                  ? false
+                  : true
               }
             >
               Pay
@@ -104,6 +151,9 @@ function PaymentSocial() {
             <button
               onClick={() => {
                 console.log(addedEvents, "<<< current added events state");
+                console.log(paidName, "<<< name");
+                console.log(paidEmail, "<<< email");
+                console.log(sessionId, "<<< session id");
               }}
             >
               Button for development to view state
