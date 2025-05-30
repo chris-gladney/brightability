@@ -10,8 +10,6 @@ import axios from "axios";
 function PaymentSocial() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const paidEmail = searchParams.get("email");
-  const paidName = searchParams.get("name");
 
   const [emailInput, setEmailInput] = useState("");
   const [confirmEmailInput, setConfirmEmailInput] = useState("");
@@ -28,18 +26,10 @@ function PaymentSocial() {
       })
       .then(() => {
         if (sessionId) {
-          axios.post(
-            "http://localhost:3000/fulfill-checkout",
-            {
-              name: paidName,
-              email: paidEmail,
-              sessionId,
-            },
-            { headers: { "Content-Type": "application/json" } }
-          );
+          axios.get(`http://localhost:3000/order-details/${sessionId}`);
         }
       });
-  }, []);
+  }, [sessionId]);
 
   const handleCheckout = (name, email, addedEvents) => {
     axios
@@ -151,8 +141,6 @@ function PaymentSocial() {
             <button
               onClick={() => {
                 console.log(addedEvents, "<<< current added events state");
-                console.log(paidName, "<<< name");
-                console.log(paidEmail, "<<< email");
                 console.log(sessionId, "<<< session id");
               }}
             >
