@@ -13,7 +13,6 @@ function PaymentSocial() {
 
   const [emailInput, setEmailInput] = useState("");
   const [confirmEmailInput, setConfirmEmailInput] = useState("");
-  const [attendeeInput, setAttendeeInput] = useState("");
 
   const [allEvents, setAllEvents] = useState([]);
   const [addedEvents, setAddedEvents] = useState([]);
@@ -31,12 +30,11 @@ function PaymentSocial() {
       });
   }, [sessionId]);
 
-  const handleCheckout = (name, email, addedEvents) => {
+  const handleCheckout = (email, addedEvents) => {
     axios
       .post(
         "http://localhost:3000/pay-social",
         {
-          name,
           email,
           addedEvents,
         },
@@ -102,35 +100,22 @@ function PaymentSocial() {
               }}
               required
             ></input>
-            <br />
-            <label htmlFor="attendee-name">Attendee Name:</label>
-            <br />
-            <input
-              type="text"
-              id="attendee-name"
-              name="attendee-name"
-              onChange={(e) => {
-                setAttendeeInput(e.target.value);
-              }}
-              required
-            ></input>
+            
             <br />
             <button
               className={
                 emailInput &&
                 confirmEmailInput &&
-                attendeeInput &&
                 addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
               onClick={() => {
-                handleCheckout(attendeeInput, emailInput, addedEvents);
+                handleCheckout(emailInput, addedEvents);
               }}
               disabled={
                 emailInput &&
                 confirmEmailInput &&
-                attendeeInput &&
                 addedEvents.length > 0
                   ? false
                   : true

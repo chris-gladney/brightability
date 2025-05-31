@@ -52,6 +52,7 @@ const updateAttendeesSocial = (name, email, eventId) => {
   return SocialEvent.findOneAndUpdate(
     { _id: eventId },
     { $push: { attendees: { name, email } } }
+    // Returns the updated event with the relevent eventId
   ).catch((err) => {
     return err;
   });

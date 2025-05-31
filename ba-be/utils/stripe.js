@@ -1,12 +1,7 @@
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const createCheckoutSession = (
-  name,
-  email,
-  itemsArray,
-  socialPriceInPennies
-) => {
+const createCheckoutSession = (email, itemsArray, socialPriceInPennies) => {
   const metadataObject = {};
   if (!itemsArray.length) {
     throw new RangeError(
@@ -44,10 +39,11 @@ const retreiveCheckoutSession = (sessionId) => {
     .retrieve(sessionId, {
       expand: ["line_items"],
     })
-    .then(({ customer_details, metadata }) => {
+    .then(({ customer_details, metadata, payment_status }) => {
       return {
         customer_details,
         metadata,
+        payment_status,
       };
     });
 };
