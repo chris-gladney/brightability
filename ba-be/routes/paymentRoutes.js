@@ -67,7 +67,7 @@ router.get("/order-details/:sessionId", (req, res) => {
         );
       });
       return { customerDetails, customerEventArrayOneId };
-      // Returns the customer name and email as an object { name, email } and an array of event ids that have been purchased
+      // Returns the customer name and email as an object: { name, email } and an array of purchased event ids: [id1, id2] 
     })
     .then(({ customerDetails, customerEventArrayOneId }) => {
       // Need to retreive event objects for all event Ids
