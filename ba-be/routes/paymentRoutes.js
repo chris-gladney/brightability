@@ -57,19 +57,30 @@ router.get("/order-details/:sessionId", (req, res) => {
           customerEventArrayOneId.push(eventObject.id);
         }
       });
-      customerEventArrayOneId.forEach((customerEventId) => {
-        // Iterates over the CustomerEventArray and updates each event within by Id using the imported func
-        // Has been changed that an event's attendees are only updated once
-        updateAttendeesSocial(
-          customerDetails.name,
-          customerDetails.email,
-          customerEventId
-        );
-      });
-      return { customerDetails, customerEventArrayOneId };
-      // Returns the customer name and email as an object: { name, email } and an array of purchased event ids: [id1, id2] 
+      const arrayOfEvents = Promise.all(
+        customerEventArrayOneId.map((customerEventId) => {
+          // Iterates over the CustomerEventArray and updates each event within by Id using the imported func
+          // Has been changed that an event's attendees are only updated once
+
+          return updateAttendeesSocial(
+            customerDetails.name,
+            customerDetails.email,
+            customerEventId
+          );
+        })
+      );
+
+      return arrayOfEvents.then((resolvedEvents) => ({
+        customerDetails,
+        arrayOfEvents: resolvedEvents,
+      }));
+      // Returns the customer name and email as an object: { name, email } and an array of purchased event ids: [id1, id2]
     })
-    .then(({ customerDetails, customerEventArrayOneId }) => {
+    .then(({ customerDetails, arrayOfEvents }) => {
+      const { name, email } = customerDetails;
+      arrayOfEvents.forEach((event) => {
+        emailAttendeeSocial(name, email, event);
+      });
       // Need to retreive event objects for all event Ids
       // Return the previous data and the eventsById
     })

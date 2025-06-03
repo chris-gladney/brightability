@@ -27,6 +27,12 @@ function PaymentSocial() {
         if (sessionId) {
           axios.get(`http://localhost:3000/order-details/${sessionId}`);
         }
+      })
+      .then(() => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete("session_id");
+
+        navigate({ search: newParams.toString() }, { replace: true });
       });
   }, [sessionId]);
 
@@ -100,13 +106,11 @@ function PaymentSocial() {
               }}
               required
             ></input>
-            
+
             <br />
             <button
               className={
-                emailInput &&
-                confirmEmailInput &&
-                addedEvents.length > 0
+                emailInput && confirmEmailInput && addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
@@ -114,9 +118,7 @@ function PaymentSocial() {
                 handleCheckout(emailInput, addedEvents);
               }}
               disabled={
-                emailInput &&
-                confirmEmailInput &&
-                addedEvents.length > 0
+                emailInput && confirmEmailInput && addedEvents.length > 0
                   ? false
                   : true
               }
