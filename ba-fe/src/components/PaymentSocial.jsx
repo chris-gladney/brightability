@@ -3,13 +3,15 @@ import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ActivityCard from "./paymentComponents/activityCard";
 import axios from "axios";
 
 function PaymentSocial() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+
+  const navigate = useNavigate();
 
   const [emailInput, setEmailInput] = useState("");
   const [confirmEmailInput, setConfirmEmailInput] = useState("");
@@ -25,7 +27,7 @@ function PaymentSocial() {
       })
       .then(() => {
         if (sessionId) {
-          axios.get(`http://localhost:3000/order-details/${sessionId}`);
+          axios.get(`http://localhost:3000/order-details-social/${sessionId}`);
         }
       })
       .then(() => {
@@ -67,22 +69,15 @@ function PaymentSocial() {
                 location={event.location}
                 date={event.date}
                 setAddedEvents={setAddedEvents}
+                cartAction="Add"
+                price="£20"
               />
             );
           })}
         </section>
         <section className="cart">
-          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
-          {/* <div className="added-events">
-            {addedEvents.map((event) => {
-              return (
-                <div className="basket-event">
-                  <h6>{event.name}</h6>
-                </div>
-              );
-            })}
-          </div> */}
           <form className="checkout" onSubmit={(e) => e.preventDefault()}>
+            <h4>Confirm Payment</h4>
             <label htmlFor="email">Email:</label>
             <br />
             <input
@@ -106,11 +101,10 @@ function PaymentSocial() {
               }}
               required
             ></input>
-
             <br />
             <button
               className={
-                emailInput && confirmEmailInput && addedEvents.length > 0
+                emailInput === confirmEmailInput && addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
@@ -118,22 +112,43 @@ function PaymentSocial() {
                 handleCheckout(emailInput, addedEvents);
               }}
               disabled={
-                emailInput && confirmEmailInput && addedEvents.length > 0
+                emailInput === confirmEmailInput && addedEvents.length > 0
                   ? false
                   : true
               }
             >
               Pay
             </button>
-            <button
+            {/* !!!!!!!!!!!!!!! Development button below here */}
+            {/* <button
               onClick={() => {
                 console.log(addedEvents, "<<< current added events state");
                 console.log(sessionId, "<<< session id");
               }}
             >
               Button for development to view state
-            </button>
+            </button> */}
           </form>
+          <div className="cart-items">
+            <section className="cart-description">
+              <h4>Your Shopping Cart</h4>
+              <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+            </section>
+            {addedEvents.map((event, i) => {
+              return (
+                <ActivityCard
+                  key={i}
+                  id={event.id}
+                  name={event.name}
+                  location={event.location}
+                  date={event.date}
+                  setAddedEvents={setAddedEvents}
+                  cartAction="Remove"
+                  price="£20"
+                />
+              );
+            })}
+          </div>
         </section>
       </div>
       <Footer />

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const createCheckoutSession = (email, itemsArray, socialPriceInPennies) => {
+const createCheckoutSession = (email, itemsArray, priceInPennies, endpoint) => {
   const metadataObject = {};
   if (!itemsArray.length) {
     throw new RangeError(
@@ -19,7 +19,7 @@ const createCheckoutSession = (email, itemsArray, socialPriceInPennies) => {
           product_data: {
             name: item.name,
           },
-          unit_amount: socialPriceInPennies,
+          unit_amount: priceInPennies,
         },
         quantity: 1,
       };
@@ -27,7 +27,7 @@ const createCheckoutSession = (email, itemsArray, socialPriceInPennies) => {
 
     mode: "payment",
     // Change the success and cancel URLs later
-    success_url: `${process.env.FRONT_END_HOST}/social?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${process.env.FRONT_END_HOST}/${endpoint}?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.FRONT_END_HOST}`,
     customer_email: email,
     metadata: metadataObject,

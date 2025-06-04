@@ -17,27 +17,43 @@ const emailAttendeeSocial = (name, email, event) => {
   //   `Thanks for your purchase ${name}! We look forward to seeing you at ${event.location} on ${event.date}`
   // );
 
-  return mailTransporter
-    .sendMail(
-      {
-        from: `"Chris Gladney" ${process.env.SMTP_USER}`,
-        to: email,
-        subject: "Brightability Social Booking",
-        text: `Thanks for your purchase ${name}! We look forward to seeing you at ${event.location} on ${event.date}`,
-      },
-      (error, info) => {
-        console.log(error, "<<< error");
-        console.log("<<< info");
-        if (error) {
-          console.error("Error sending email");
-        } else {
-          console.info("email sent: " + info);
-        }
+  return mailTransporter.sendMail(
+    {
+      from: `"Chris Gladney" ${process.env.SMTP_USER}`,
+      to: email,
+      subject: "Brightability Social Booking",
+      text: `Thanks for your purchase ${name}! We look forward to seeing you at ${event.location} on ${event.date}`,
+    },
+    (error, info) => {
+      console.log(error, "<<< error");
+      console.log("<<< info");
+      if (error) {
+        console.error("Error sending email");
+      } else {
+        console.info("email sent: " + info);
       }
-    )
-    .catch((err) => {
-      console.error(err, "<<< within email function");
-    });
+    }
+  );
 };
 
-module.exports = { emailAttendeeSocial };
+const emailAttendeeConnect = (name, email, event) => {
+  return mailTransporter.sendMail(
+    {
+      from: `"Chris Gladney" ${process.env.SMTP_USER}`,
+      to: email,
+      subject: "Brightability Connect Booking",
+      text: `Thanks for your purchase ${name}! We look forward to seeing you on ${event.date}! Join our zoom call on the day using the link ${event.zoomLink}`,
+    },
+    (error, info) => {
+      console.log(error, "<<< error");
+      console.log("<<< info");
+      if (error) {
+        console.error("Error sending email");
+      } else {
+        console.info("email sent: " + info);
+      }
+    }
+  );
+};
+
+module.exports = { emailAttendeeSocial, emailAttendeeConnect };
