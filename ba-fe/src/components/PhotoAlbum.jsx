@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import placeholderImg from "../assets/placeholderImg.png";
+import axios from "axios";
 
 function PhotoAlbum() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -10,6 +11,12 @@ function PhotoAlbum() {
     This will be what is displayed while waiting 
     for a response from the server. More code will be
     added once the backend server has been completed. */
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/images").then(({ data }) => {
+      setPhotosRetrieved(data);
+    });
+  }, []);
 
   const photoFilters = [
     "All",
@@ -40,8 +47,7 @@ function PhotoAlbum() {
                     : "unselected-filter"
                 }
                 onClick={
-                  filter !== selectedFilter
-                  && photosRetrieved
+                  filter !== selectedFilter && photosRetrieved
                     ? () => {
                         setSelectedFilter(filter);
                       }

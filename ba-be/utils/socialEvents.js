@@ -1,4 +1,4 @@
-const SocialEvent = require("../models.js/SocialEvent");
+const SocialEvent = require("../models/SocialEvent");
 
 const socialNoAttendees = () => {
   return SocialEvent.find({})

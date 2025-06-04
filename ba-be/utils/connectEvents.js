@@ -1,4 +1,4 @@
-const ConnectEvent = require("../models.js/ConnectEvent");
+const ConnectEvent = require("../models/ConnectEvent");
 
 const createConnect = (name, date, zoomLink) => {
   return ConnectEvent.create({
