@@ -21,13 +21,13 @@ function PaymentConnect() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/connect")
+      .get("http://localhost:3000/events/connect")
       .then(({ data }) => {
         setAllEvents(data);
       })
       .then(() => {
         if (sessionId) {
-          axios.get(`http://localhost:3000/order-details-connect/${sessionId}`);
+          axios.get(`http://localhost:3000/payment/order-details-connect/${sessionId}`);
         }
       })
       .then(() => {
@@ -41,7 +41,7 @@ function PaymentConnect() {
   const handleCheckout = (email, addedEvents) => {
     axios
       .post(
-        "http://localhost:3000/pay-connect",
+        "http://localhost:3000/payment/pay-connect",
         {
           email,
           addedEvents,
@@ -104,7 +104,10 @@ function PaymentConnect() {
             <br />
             <button
               className={
-                emailInput === confirmEmailInput && addedEvents.length > 0
+                emailInput &&
+                confirmEmailInput &&
+                emailInput === confirmEmailInput &&
+                addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
@@ -142,6 +145,7 @@ function PaymentConnect() {
                   name={event.name}
                   location={event.location}
                   date={event.date}
+                  addedEvents={addedEvents}
                   setAddedEvents={setAddedEvents}
                   cartAction="Remove"
                   price="4"

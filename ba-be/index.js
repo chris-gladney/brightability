@@ -6,6 +6,8 @@ const PORT = 3000;
 const eventRoutes = require("./routes/eventRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const photoRoutes = require("./routes/photoRoutes");
+const adminPhotoRoutes = require("./routes/adminPhotoRoutes");
+const adminRoutesSocial = require("./routes/adminRoutesSocial");
 
 const connectDB = require("./config/db");
 require("dotenv").config();
@@ -17,15 +19,15 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+app.use(cors(corsOptions));
+
+app.use("/admin/images", adminPhotoRoutes);
+
 app.use(express.json());
+app.use("/admin/social", adminRoutesSocial);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.use("/", cors(corsOptions), eventRoutes);
-app.use("/", cors(corsOptions), paymentRoutes);
-app.use("/", cors(corsOptions), photoRoutes);
+app.use("/events", eventRoutes);
+app.use("/payment", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

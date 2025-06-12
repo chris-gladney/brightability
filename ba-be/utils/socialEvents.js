@@ -1,5 +1,15 @@
 const SocialEvent = require("../models/SocialEvent");
 
+const socialWithAttendees = () => {
+  return SocialEvent.find({})
+    .then((event) => {
+      return event;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const socialNoAttendees = () => {
   return SocialEvent.find({})
     .then((events) => {
@@ -38,7 +48,7 @@ const socialById = (eventId) => {
     });
 };
 
-const createSocial = (name, date, location) => {
+const createSocial = (name, location, date) => {
   return SocialEvent.create({
     name,
     location,
@@ -58,9 +68,17 @@ const updateAttendeesSocial = (name, email, eventId) => {
   });
 };
 
+const deleteSocialById = (eventId) => {
+  return SocialEvent.deleteOne({ _id: eventId }).catch((err) => {
+    return err;
+  });
+};
+
 module.exports = {
+  socialWithAttendees,
   socialNoAttendees,
   socialById,
   createSocial,
   updateAttendeesSocial,
+  deleteSocialById,
 };

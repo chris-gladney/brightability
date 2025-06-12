@@ -1,9 +1,7 @@
-import { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UploadForm from "../Components/UploadPhotosForm";
-import LoginForm from "../Components/LoginForm";
-import Authenticated from "../Components/Authenticated";
+import LoginForm from "./Components/LoginForm";
+import Authenticated from "./Components/Authenticated";
 
 function App() {
   return (

@@ -8,11 +8,11 @@ function LoginForm() {
   return (
     <>
       <form>
-        <label for="username">UserName:</label>
+        <label htmlFor="username">UserName:</label>
         <br />
         <input type="text" id="username" name="username"></input>
         <br />
-        <label for="password">Password:</label>
+        <label htmlFor="password">Password:</label>
         <br />
         <input type="password" id="password" name="password"></input>
         <br />

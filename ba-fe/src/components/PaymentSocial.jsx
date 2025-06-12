@@ -21,13 +21,15 @@ function PaymentSocial() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/social")
+      .get("http://localhost:3000/events/social")
       .then(({ data }) => {
         setAllEvents(data);
       })
       .then(() => {
         if (sessionId) {
-          axios.get(`http://localhost:3000/order-details-social/${sessionId}`);
+          axios.get(
+            `http://localhost:3000/payment/order-details-social/${sessionId}`
+          );
         }
       })
       .then(() => {
@@ -41,7 +43,7 @@ function PaymentSocial() {
   const handleCheckout = (email, addedEvents) => {
     axios
       .post(
-        "http://localhost:3000/pay-social",
+        "http://localhost:3000/payment/pay-social",
         {
           email,
           addedEvents,
@@ -76,8 +78,9 @@ function PaymentSocial() {
           })}
         </section>
         <section className="cart">
+          <h4>Confirm Payment</h4>
+          <p className="payment-instructions"></p>
           <form className="checkout" onSubmit={(e) => e.preventDefault()}>
-            <h4>Confirm Payment</h4>
             <label htmlFor="email">Email:</label>
             <br />
             <input
@@ -104,7 +107,10 @@ function PaymentSocial() {
             <br />
             <button
               className={
-                emailInput === confirmEmailInput && addedEvents.length > 0
+                emailInput &&
+                confirmEmailInput &&
+                emailInput === confirmEmailInput &&
+                addedEvents.length > 0
                   ? "active-checkout"
                   : "inactive-checkout"
               }
