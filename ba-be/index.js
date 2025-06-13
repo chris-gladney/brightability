@@ -8,6 +8,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const photoRoutes = require("./routes/photoRoutes");
 const adminPhotoRoutes = require("./routes/adminPhotoRoutes");
 const adminRoutesSocial = require("./routes/adminRoutesSocial");
+const adminRoutesConnect = require("./routes/adminRoutesConnect");
 
 const connectDB = require("./config/db");
 require("dotenv").config();
@@ -25,6 +26,7 @@ app.use("/admin/images", adminPhotoRoutes);
 
 app.use(express.json());
 app.use("/admin/social", adminRoutesSocial);
+app.use("/admin/connect", adminRoutesConnect);
 
 app.use("/events", eventRoutes);
 app.use("/payment", paymentRoutes);

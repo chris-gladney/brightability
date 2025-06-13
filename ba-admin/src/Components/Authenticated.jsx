@@ -1,5 +1,6 @@
 import ConnectEvents from "./ConnectEvents";
 import SocialEvents from "./SocialEvents";
+import Staff from "./Staff";
 import UploadForm from "./UploadPhotosForm";
 
 function Authenticated() {
@@ -16,6 +17,9 @@ function Authenticated() {
         </section>
         <section className="connect-events">
           <ConnectEvents />
+        </section>
+        <section className="staff">
+          <Staff />
         </section>
       </div>
     </>

@@ -1,30 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const {
-  socialWithAttendees,
-  createSocial,
-  deleteSocialById,
-} = require("../utils/socialEvents");
+  connectWithAttendees,
+  createConnect,
+  deleteConnectById,
+} = require("../utils/connectEvents");
 
-// Get all events with attendees
 router.get("/events", (req, res) => {
-  socialWithAttendees()
+  connectWithAttendees()
     .then((events) => {
       res.status(200).json(events);
     })
-    .catch((error) => {
-      console.error(error);
+    .catch((err) => {
+      console.error(err);
       res.status(500).json({ message: "Server Error" });
     });
 });
 
 router.post("/events", (req, res) => {
-  const { name, location, date } = req.body;
-  createSocial(name, location, date)
+  const { name, zoomLink, date } = req.body;
+  createConnect(name, zoomLink, date)
     .then((data) => {
       res.status(201).json({
         message: "Event Successfully Created",
-        event: `Name: ${data.name}, location: ${data.location}, date: ${data.date}`,
+        event: `Name: ${data.name}, date: ${data.date}`,
       });
     })
     .catch((err) => {
@@ -35,7 +34,7 @@ router.post("/events", (req, res) => {
 
 router.delete("/events/:id", (req, res) => {
   const { id } = req.params;
-  deleteSocialById(id)
+  deleteConnectById(id)
     .then(() => {
       res.status(200).json({ message: "Event Successfully Deleted" });
     })

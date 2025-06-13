@@ -1,6 +1,6 @@
 const ConnectEvent = require("../models/ConnectEvent");
 
-const createConnect = (name, date, zoomLink) => {
+const createConnect = (name, zoomLink, date) => {
   return ConnectEvent.create({
     name,
     zoomLink,
@@ -22,6 +22,16 @@ const connectNoAttendees = () => {
         });
       });
       return eventsNoAttendees;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const connectWithAttendees = () => {
+  return ConnectEvent.find({})
+    .then((event) => {
+      return event;
     })
     .catch((err) => {
       return err;
@@ -56,9 +66,17 @@ const updateAttendeesConnect = (name, email, eventId) => {
   });
 };
 
+const deleteConnectById = (eventId) => {
+  return ConnectEvent.deleteOne({ _id: eventId }).catch((err) => {
+    return err;
+  });
+};
+
 module.exports = {
   createConnect,
   connectNoAttendees,
+  connectWithAttendees,
   connectById,
   updateAttendeesConnect,
+  deleteConnectById
 };

@@ -48,26 +48,58 @@ function SocialEvents() {
       )
       .then(({ data }) => {
         alert(`${data.message}\n${data.event}`);
+      })
+      .then(() => {
+        window.location.reload();
       });
   };
 
   // Function to handle getting attendees of selectedEvents
-  const handleAttendees = (e, selectedEvents) => {
+  const handleAttendees = (e) => {
     e.preventDefault();
-    selectedEvents.forEach((event) => {
-      const currentEventObj = {
-        name: event.name,
-        attendees: event.attendees,
-      };
-      alert(
-        `Event: ${currentEventObj.name} has the following attendees: \n${currentEventObj.attendees}`
-      );
+    selectedEvents.forEach((eventId) => {
+      existingEvents.forEach((event) => {
+        if (eventId === event._id) {
+          let attendeesString = "";
+          event.attendees.forEach((attendee) => {
+            attendeesString += `\n${attendee.name}`;
+          });
+          alert(
+            `Event: ${event.name} on ${event.date} has ${
+              attendeesString.length > 0
+                ? `the following attendees: \n${attendeesString}`
+                : `has no attendees`
+            }`
+          );
+        }
+      });
     });
   };
 
   // Function to handle deleting events
-  const deleteEvents = (e, selectedEvents) => {
+  const deleteEvents = (e) => {
     e.preventDefault();
+    if (
+      confirm(
+        `Are you sure you want to delete the ${selectedEvents.length} selected events? \nAny refunds will have to be processed manually.`
+      ) === true
+    ) {
+      Promise.all(
+        selectedEvents.map((eventId) => {
+          return axios
+            .delete(`http://localhost:3000/admin/social/events/${eventId}`)
+            .then(({ data }) => {
+              alert(data.message);
+            });
+        })
+      )
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -113,12 +145,18 @@ function SocialEvents() {
             }}
           ></input>
           <br />
-          <button>Submit</button>
+          <button
+            disabled={
+              newEventName && newEventLocation && newEventDate ? false : true
+            }
+          >
+            Submit
+          </button>
         </form>
       </section>
       <section className="existing-events">
         <button onClick={() => setShowAllEvents(!showAllEvents)}>
-          {showAllEvents ? "Collapse Events" : "Show Events"}
+          {showAllEvents ? "Collapse Events" : "Show Existing Events"}
         </button>
         {showAllEvents
           ? existingEvents.map((event, i) => {
@@ -140,16 +178,17 @@ function SocialEvents() {
         <form
           className="get-social-attendees"
           onSubmit={(e) => {
-            e.preventDefault()
-            handleAttendees(selectedEvents);
+            handleAttendees(e);
           }}
         >
-          <button>Get Attendees</button>
+          <button disabled={selectedEvents.length > 0 ? false : true}>
+            Get Attendees
+          </button>
         </form>
         <form
           className="delete-event"
           onSubmit={(e) => {
-            deleteEvents(e.target.value, selectedEvents);
+            deleteEvents(e);
           }}
         >
           <button disabled={selectedEvents.length > 0 ? false : true}>
@@ -172,6 +211,8 @@ function SocialEvents() {
           console.log(newEventName, "<<< newEventName");
           console.log(newEventLocation, "<<< newEventLocation");
           console.log(newEventDate, "<<< newEventDate");
+          console.log(existingEvents, "<<< existingEvents");
+          console.log(selectedEvents, "<<< selectedEvents");
         }}
       >
         Development Button Social
